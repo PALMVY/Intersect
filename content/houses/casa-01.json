@@ -1,0 +1,133 @@
+{
+  "order_index": 1,
+  "slug": "casa-01-mito-e-logos",
+  "title": "Casa I: A Centelha do Logos",
+  "subtitle": "Do Pensamento Mítico à Cosmologia Pré-Socrática",
+  "notebook_phase": 1,
+  "philosophers": [
+    {
+      "slug": "hesiodo-mitologia",
+      "name": "Hesíodo & Mitologia Grega",
+      "era": "Século VIII a.C.",
+      "core_concept": "Cosmogonia e Arquétipos Humanos",
+      "summary": "Sistematização das narrativas fundacionais (Teogonia) e dos mitos de Prometeu, Édipo, Narciso e Apolo/Dionísio, que estruturam o imaginário ocidental e a base simbólica da psicanálise.",
+      "connections": [
+        { "target_slug": "tales-de-mileto", "relation_type": "opposition", "base_weight": 7 },
+        { "target_slug": "sigmund-freud", "relation_type": "influence", "base_weight": 9 },
+        { "target_slug": "friedrich-nietzsche", "relation_type": "influence", "base_weight": 8 }
+      ]
+    },
+    {
+      "slug": "tales-de-mileto",
+      "name": "Tales de Mileto",
+      "era": "c. 624 – 546 a.C.",
+      "core_concept": "Arkhé (A Água como Princípio Único)",
+      "summary": "Marco zero da filosofia ocidental. Substituiu explicações sobrenaturais pela busca de um princípio material e racional (Arkhé) capaz de explicar a origem e a unidade da natureza (Physis).",
+      "connections": [
+        { "target_slug": "heraclito", "relation_type": "influence", "base_weight": 6 }
+      ]
+    },
+    {
+      "slug": "heraclito",
+      "name": "Heráclito de Éfeso",
+      "era": "c. 535 – 475 a.C.",
+      "core_concept": "Devir e Luta dos Opostos",
+      "summary": "Defendeu que a realidade é fluxo contínuo ('tudo flui') regido pelo Logos e pela tensão constante entre forças contrárias, simbolizado pelo fogo.",
+      "connections": [
+        { "target_slug": "parmenides", "relation_type": "opposition", "base_weight": 10 },
+        { "target_slug": "platao", "relation_type": "influence", "base_weight": 8 },
+        { "target_slug": "friedrich-nietzsche", "relation_type": "influence", "base_weight": 9 }
+      ]
+    },
+    {
+      "slug": "parmenides",
+      "name": "Parmênides de Eleia",
+      "era": "c. 515 – 450 a.C.",
+      "core_concept": "Imutabilidade do Ser",
+      "summary": "Fundador da ontologia. Argumentou que a mudança captada pelos sentidos é ilusão; o Ser é único, eterno, imóvel e acessível apenas pela razão pura.",
+      "connections": [
+        { "target_slug": "platao", "relation_type": "influence", "base_weight": 10 }
+      ]
+    }
+  ],
+  "modules": [
+    {
+      "level": "beginner",
+      "order_index": 1,
+      "title": "A Cartola do Mágico: O que é Filosofia e o Papel dos Mitos",
+      "source_reference": "O Mundo de Sofia (Capítulos: O Jardim do Éden, A Cartola e Os Mitos)",
+      "estimated_minutes": 25,
+      "content_markdown": "Compreenda por que a humanidade precisou criar narrativas divinas (Thor, Zeus, Prometeu) para explicar fenômenos naturais antes do surgimento da ciência, e como o espanto diante da existência inaugura o pensamento filosófico."
+    },
+    {
+      "level": "beginner",
+      "order_index": 2,
+      "title": "Os Filósofos da Natureza e a Busca pelo Arkhé",
+      "source_reference": "O Mundo de Sofia (Capítulo: Os Filósofos da Natureza)",
+      "estimated_minutes": 30,
+      "content_markdown": "A transição do Mito para o Logos na cidade de Mileto: como Tales, Anaximandro e Anaxímenes abandonaram os deuses para procurar o elemento primordial (Arkhé) da Physis."
+    },
+    {
+      "level": "intermediate",
+      "order_index": 1,
+      "title": "Arquétipos Mitológicos: De Hesíodo à Psicanálise",
+      "source_reference": "Hesíodo — Teogonia & Síntese de Mitos (Édipo, Narciso, Apolo e Dionísio)",
+      "estimated_minutes": 40,
+      "content_markdown": "Análise estrutural da cosmogonia grega (do Caos ao Cosmos) e o estudo dos mitos trágicos que séculos depois serviriam de alicerce conceitual para Freud (Édipo e Narciso) e Nietzsche (o apolíneo e o dionisíaco)."
+    },
+    {
+      "level": "intermediate",
+      "order_index": 2,
+      "title": "O Embate Ontológico: Heráclito vs. Parmênides",
+      "source_reference": "Fragmentos Pré-Socráticos — Cosmologia e Ontologia",
+      "estimated_minutes": 45,
+      "content_markdown": "O grande dilema da antiguidade: a realidade é transformação eterna (o Devir de Heráclito) ou unidade imóvel acessível apenas ao intelecto (o Ser de Parmênides)? Esse impasse prepara o terreno para a Teoria das Ideias de Platão."
+    },
+    {
+      "level": "advanced",
+      "order_index": 1,
+      "title": "Crítica Epistemológica ao Sensível: Os Eleatas e a Dialética da Physis",
+      "source_reference": "Poema de Parmênides (Via da Verdade vs. Via da Opinião) & Fragmentos de Heráclito",
+      "estimated_minutes": 60,
+      "content_markdown": "Exame rigoroso da cisão entre Doxa (opinião sensorial enganosa) e Episteme/Aletheia (verdade racional) nos fragmentos eleáticos, avaliando como a identidade entre Ser e Pensar fundamenta toda a metafísica ocidental."
+    }
+  ],
+  "quiz": [
+    {
+      "order_index": 1,
+      "question": "Qual foi a ruptura metodológica fundamental promovida pelos primeiros filósofos pré-socráticos de Mileto em relação à tradição mitológica?",
+      "options": [
+        "A negação completa da existência de qualquer ordem no universo, defendendo o caos absoluto.",
+        "A substituição de narrativas teogônicas e antropomórficas pela busca de um princípio natural e racional (Arkhé) inerente à própria Physis.",
+        "O abandono do estudo da natureza externa para focar exclusivamente na ética política das cidades-estado.",
+        "A criação de dogmas religiosos baseados na revelação escrita de oráculos."
+      ],
+      "correct_option_index": 1,
+      "explanation": "A passagem do Mito ao Logos ocorre quando Tales e os milésios passam a explicar a natureza a partir de elementos e leis próprias da própria natureza (Arkhé), sem recorrer à vontade arbitrária dos deuses."
+    },
+    {
+      "order_index": 2,
+      "question": "Como se opõem as visões de mundo de Heráclito de Éfeso e Parmênides de Eleia?",
+      "options": [
+        "Heráclito defendia que o universo é imóvel e eterno, enquanto Parmênides afirmava que tudo está em constante fluxo.",
+        "Ambos concordavam que os sentidos humanos são a única fonte confiável de verdade absoluta.",
+        "Heráclito via a realidade como devir contínuo e tensão de opostos, enquanto Parmênides sustentava que a mudança é ilusão sensorial e apenas o Ser imóvel existe.",
+        "Heráclito focava apenas na moral cristã, enquanto Parmênides estudava astronomia."
+      ],
+      "correct_option_index": 2,
+      "explanation": "Essa oposição (Devir vs. Ser) é o nó central da filosofia pré-socrática que obrigará Platão, na Casa 2, a dividir a realidade em Mundo Sensível e Mundo Inteligível."
+    },
+    {
+      "order_index": 3,
+      "question": "Por que o estudo de mitos como Édipo, Narciso e a dualidade Apolo/Dionísio é estruturalmente relevante para etapas avançadas deste plano de estudos?",
+      "options": [
+        "Porque comprovam historicamente a data exata da fundação de Atenas.",
+        "Porque fornecem arquétipos simbólicos sobre desejo, ego e pulsões que foram posteriormente formalizados por pensadores como Freud e Nietzsche.",
+        "Porque servem apenas como entretenimento literário sem relação com a filosofia.",
+        "Porque demonstram que os gregos já dominavam a neuroplasticidade cerebral."
+      ],
+      "correct_option_index": 1,
+      "explanation": "A mitologia grega funciona como uma cartografia simbólica da psique humana, resgatada diretamente pela filosofia contemporânea e pela psicanálise na Fase 3."
+    }
+  ]
+}
