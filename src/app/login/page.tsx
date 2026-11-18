@@ -34,7 +34,8 @@ export default function LoginPage() {
   };
 
   return (
-    <form onSubmit={signIn} className="login" aria-labelledby="login-title">
+    <form onSubmit={signIn} className="login glass-elevated" aria-labelledby="login-title">
+      <p className="brand">ARCHÉ</p>
       <h1 id="login-title">Entrar</h1>
       <label>
         E-mail

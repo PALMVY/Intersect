@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { AsyncState } from "@/components/AsyncState";
-import { HouseList } from "@/components/HouseList";
 import { SignOutButton } from "@/components/SignOutButton";
+import { Trail } from "@/components/Trail";
 import { loadHouses } from "@/lib/content/loader";
 import { loadReconciledProgress } from "@/lib/progress/repository";
 import type { ProgressRow } from "@/lib/progress/state";
@@ -12,9 +12,10 @@ export default function TrailPage() {
   return (
     <>
       <header className="page-header">
-        <h1>Trilha das 12 Casas</h1>
+        <p className="brand">ARCHÉ</p>
         <SignOutButton />
       </header>
+      <h1 className="trail-heading">Trilha das 12 Casas</h1>
       <Suspense fallback={<AsyncState status="loading" message="Carregando sua trilha…" />}>
         <TrailContent />
       </Suspense>
@@ -38,7 +39,7 @@ async function TrailContent() {
   }
 
   return progress ? (
-    <HouseList houses={houses} progress={progress} />
+    <Trail houses={houses} progress={progress} />
   ) : (
     <AsyncState status="error" message="Não foi possível carregar seu progresso." />
   );

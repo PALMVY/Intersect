@@ -16,6 +16,7 @@ import {
 } from "@/lib/progress/state";
 import type { QuizResult } from "@/lib/quiz/grade";
 import { createBrowserClient } from "@/lib/supabase/client";
+import { PHASE_NAMES, ROADMAP } from "@/lib/trail/roadmap";
 import { Checklist, type ChecklistItem } from "./Checklist";
 import { QuizRunner } from "./QuizRunner";
 import { ThinkerList } from "./ThinkerList";
@@ -27,6 +28,10 @@ const withDefaults = (signal?: ThinkerSignal): ThinkerSignal => ({
   quizPassed: false,
   ...signal,
 });
+const phaseLabel = (house: House): string => {
+  const phase = ROADMAP.find((entry) => entry.orderIndex === house.order_index)?.phase;
+  return phase ? `Fase ${phase} · ${PHASE_NAMES[phase]}` : `Fase ${house.notebook_phase}`;
+};
 const SAVE_ERROR = "Não foi possível salvar. Verifique sua conexão e tente de novo.";
 
 type Props = {
@@ -126,10 +131,13 @@ export function HouseView({ house, allHouses, initialRows, initialSignals, userI
   return (
     <article>
       <p>
-        <Link href="/">← Trilha</Link>
+        <Link href="/" className="label-mono back-link">
+          ← Voltar à trilha
+        </Link>
       </p>
+      <p className="label-mono house-phase">{phaseLabel(house)}</p>
       <h1>{house.title}</h1>
-      <p className="subtitle">{house.subtitle}</p>
+      <p className="subtitle house-subtitle">{house.subtitle}</p>
 
       {error && (
         <p role="alert" className="state state-error">
@@ -159,7 +167,7 @@ export function HouseView({ house, allHouses, initialRows, initialSignals, userI
       </section>
 
       <section aria-labelledby="modulos">
-        <h2 id="modulos">Módulos de estudo</h2>
+        <h2 id="modulos">Roteiro de estudo</h2>
         <Checklist items={items} done={row.checklistDone} onToggle={toggleItem} disabled={saving} />
       </section>
 

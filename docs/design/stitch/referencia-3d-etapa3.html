@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- STITCH_THREEJS_START:ANIMATION_1 class="fixed inset-0 w-full h-full bg-transparent" -->
+<div class="fixed inset-0 w-full h-full bg-transparent" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_1" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_1');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  // Three.js Scene for ARCHÉ 12 Casas Constellation
+const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+camera.position.set(0, 1.2, 7.5);
+
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+container.appendChild(renderer.domElement);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+scene.add(ambientLight);
+
+const goldPoint = new THREE.PointLight(0xE2B96F, 2.5, 20);
+goldPoint.position.set(-2, 1, 3);
+scene.add(goldPoint);
+
+const blueRim = new THREE.PointLight(0x4A6B82, 1.8, 25);
+blueRim.position.set(3, -2, -2);
+scene.add(blueRim);
+
+// Particle starfield / stardust background
+const starCount = 350;
+const starGeo = new THREE.BufferGeometry();
+const starPos = new Float32Array(starCount * 3);
+for (let i = 0; i < starCount * 3; i += 3) {
+  starPos[i] = (Math.random() - 0.5) * 24;
+  starPos[i + 1] = (Math.random() - 0.5) * 16;
+  starPos[i + 2] = (Math.random() - 0.5) * 18 - 2;
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+const starMat = new THREE.PointsMaterial({
+  color: 0xffffff,
+  size: 0.035,
+  transparent: true,
+  opacity: 0.45
+});
+const stars = new THREE.Points(starGeo, starMat);
+scene.add(stars);
+
+// Constellation Group
+const constellationGroup = new THREE.Group();
+scene.add(constellationGroup);
+
+// 12 Casas Coordinates along an elegant ascending spiral
+const nodes = [];
+const nodePositions = [];
+const numNodes = 12;
+
+for (let i = 0; i < numNodes; i++) {
+  const t = i / (numNodes - 1);
+  const angle = t * Math.PI * 2.4 - Math.PI * 0.9;
+  const radius = 2.4 - t * 0.75;
+  const x = Math.cos(angle) * radius;
+  const y = (t - 0.5) * 3.4;
+  const z = Math.sin(angle) * radius * 0.7;
+
+  nodePositions.push(new THREE.Vector3(x, y, z));
+
+  // Node Octahedron Geometry
+  const size = (i === 0) ? 0.32 : (i < 3 ? 0.22 : 0.17);
+  const geo = new THREE.OctahedronGeometry(size, 0);
+
+  // Materials: Casa I is glowing Astral Gold, others range from Crisp Slate to Dimmed locked
+  let mat;
+  if (i === 0) {
+    mat = new THREE.MeshStandardMaterial({
+      color: 0xE2B96F,
+      roughness: 0.2,
+      metalness: 0.8,
+      emissive: 0x93702A,
+      emissiveIntensity: 0.65,
+      flatShading: true
+    });
+  } else if (i === 1) {
+    mat = new THREE.MeshStandardMaterial({
+      color: 0xF8FAFC,
+      roughness: 0.3,
+      metalness: 0.4,
+      emissive: 0x334155,
+      emissiveIntensity: 0.2,
+      flatShading: true
+    });
+  } else {
+    mat = new THREE.MeshStandardMaterial({
+      color: 0x475569,
+      roughness: 0.6,
+      metalness: 0.2,
+      flatShading: true,
+      transparent: true,
+      opacity: Math.max(0.3, 0.75 - i * 0.04)
+    });
+  }
+
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set(x, y, z);
+  constellationGroup.add(mesh);
+
+  // Wireframe halo for Node 0 & 1
+  if (i === 0) {
+    const wireGeo = new THREE.OctahedronGeometry(size * 1.35, 0);
+    const wireMat = new THREE.MeshBasicMaterial({
+      color: 0xE2B96F,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.4
+    });
+    const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+    mesh.add(wireMesh);
+    mesh.userData.wire = wireMesh;
+  }
+
+  nodes.push(mesh);
+}
+
+// Luminous hairline threads connecting the nodes in sequence
+const linePoints = nodePositions;
+const curve = new THREE.CatmullRomCurve3(linePoints);
+const points = curve.getPoints(160);
+const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+const lineMat = new THREE.LineBasicMaterial({
+  color: 0xE2B96F,
+  transparent: true,
+  opacity: 0.35,
+  linewidth: 1
+});
+const splineLine = new THREE.Line(lineGeo, lineMat);
+constellationGroup.add(splineLine);
+
+// Inter-constellation secondary hairline chords (astral web)
+const chordMat = new THREE.LineBasicMaterial({
+  color: 0x64748B,
+  transparent: true,
+  opacity: 0.12
+});
+const chordGeo = new THREE.BufferGeometry();
+const chordPositions = [];
+const pairs = [[0, 2], [1, 3], [2, 5], [3, 7], [4, 8], [6, 9], [7, 10], [9, 11]];
+pairs.forEach(([p1, p2]) => {
+  chordPositions.push(nodePositions[p1].x, nodePositions[p1].y, nodePositions[p1].z);
+  chordPositions.push(nodePositions[p2].x, nodePositions[p2].y, nodePositions[p2].z);
+});
+chordGeo.setAttribute('position', new THREE.Float32BufferAttribute(chordPositions, 3));
+const chords = new THREE.LineSegments(chordGeo, chordMat);
+constellationGroup.add(chords);
+
+// Gentle interactive rotation & mouse parallax
+let mouseX = 0;
+let mouseY = 0;
+let targetX = 0;
+let targetY = 0;
+
+window.addEventListener('mousemove', (e) => {
+  mouseX = (e.clientX / window.innerWidth - 0.5) * 0.4;
+  mouseY = (e.clientY / window.innerHeight - 0.5) * 0.3;
+});
+
+// Render Loop
+let clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const elapsedTime = clock.getElapsedTime();
+
+  targetX += (mouseX - targetX) * 0.05;
+  targetY += (mouseY - targetY) * 0.05;
+
+  constellationGroup.rotation.y = elapsedTime * 0.09 + targetX * 0.6;
+  constellationGroup.rotation.x = Math.sin(elapsedTime * 0.07) * 0.08 + targetY * 0.4;
+
+  nodes.forEach((node, idx) => {
+    node.rotation.x += 0.008 + idx * 0.001;
+    node.rotation.y += 0.01 + idx * 0.001;
+    if (node.userData.wire) {
+      node.userData.wire.rotation.x -= 0.015;
+      node.userData.wire.rotation.y -= 0.012;
+    }
+  });
+
+  stars.rotation.y = elapsedTime * 0.01;
+
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  const w = container.clientWidth || window.innerWidth;
+  const h = container.clientHeight || window.innerHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+});
+
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_1 -->
+</body>
+</html>

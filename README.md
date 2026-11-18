@@ -35,6 +35,8 @@ group by 1, 2
 order by 1, 2;
 ```
 
+Deploy do retoque visual: **AAAA-MM-DD HH:MM** (horário de Brasília). Preencha ao fazer o deploy. Para separar o efeito do visual novo, compare os dias de retorno antes e depois dessa data.
+
 ## Testes
 
 - `npm test`: testes unitários (conteúdo, nota, estados, repositório, componentes).
